@@ -88,10 +88,7 @@ func (tmdb *TMDB) PopularMovie() (result SearchMovieResult, err error) {
 		return result, err
 	}
 	err = json.Unmarshal(body, &result)
-	if err != nil {
-		return result, err
-	}
-	return result, nil
+	return result, err
 }
 
 // PopularTV ...
@@ -101,10 +98,7 @@ func (tmdb *TMDB) PopularTV() (result SearchTVResult, err error) {
 		return result, err
 	}
 	err = json.Unmarshal(body, &result)
-	if err != nil {
-		return result, err
-	}
-	return result, nil
+	return result, err
 }
 
 // SearchMulti ...
@@ -114,10 +108,7 @@ func (tmdb *TMDB) SearchMulti(query string) (result SearchMultiResult, err error
 		return result, err
 	}
 	err = json.Unmarshal(body, &result)
-	if err != nil {
-		return result, err
-	}
-	return result, nil
+	return result, err
 }
 
 // SearchMovie ...
@@ -127,8 +118,5 @@ func (tmdb *TMDB) SearchMovie(query string) (result SearchMovieResult, err error
 		return result, err
 	}
 	err = json.Unmarshal(body, &result)
-	if err != nil {
-		return result, err
-	}
-	return result, nil
+	return result, err
 }
