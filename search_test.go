@@ -68,3 +68,12 @@ func TestSearchMovie(t *testing.T) {
 		t.Errorf("It should not fail, but got an error: %s", err)
 	}
 }
+
+func TestBadURLSearchMovie(t *testing.T) {
+	tmdb := NewTMDB()
+	tmdb.BaseURL = "http://foo.bar/"
+	_, err := tmdb.SearchMovie("matrix")
+	if err == nil {
+		t.Errorf("It should fail because the BaseURL %s, does not exist.", tmdb.BaseURL)
+	}
+}
