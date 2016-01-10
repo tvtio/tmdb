@@ -4,7 +4,11 @@
 
 package tmdb
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+	"net/url"
+)
 
 // Season type represents The Movie's Database TV Show Season
 type Season struct {
@@ -84,7 +88,9 @@ type Season struct {
 
 // GetSeason ...
 func (tmdb *TMDB) GetSeason(id string, snumber string) (result Season, err error) {
-	body, err := fetchContent(tmdb.BaseURL + "tv/" + id + "/season/" + snumber + "?api_key=" + tmdb.APIKey + "&append_to_response=credits,external_ids,images,videos")
+	s := fmt.Sprintf("%stv/%s/season/%s?api_key=%s&append_to_response=credits,external_ids,images,videos", tmdb.BaseURL, id, snumber, tmdb.APIKey)
+	u, _ := url.Parse(s)
+	body, err := fetchContent(u)
 	if err != nil {
 		return result, err
 	}

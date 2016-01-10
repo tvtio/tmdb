@@ -4,7 +4,11 @@
 
 package tmdb
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+	"net/url"
+)
 
 // TV type represents The Movie's Database TV Show
 type TV struct {
@@ -75,7 +79,9 @@ type TV struct {
 
 // GetTV ...
 func (tmdb *TMDB) GetTV(id string) (result TV, err error) {
-	body, err := fetchContent(tmdb.BaseURL + "tv/" + id + "?api_key=" + tmdb.APIKey + "&append_to_response=credits")
+	s := fmt.Sprintf("%stv/%s?api_key=%s&append_to_response=credits", tmdb.BaseURL, id, tmdb.APIKey)
+	u, _ := url.Parse(s)
+	body, err := fetchContent(u)
 	if err != nil {
 		return result, err
 	}

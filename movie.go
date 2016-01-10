@@ -4,7 +4,11 @@
 
 package tmdb
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+	"net/url"
+)
 
 // Movie type represents The Movie's Database Movie
 type Movie struct {
@@ -93,7 +97,9 @@ type Movie struct {
 
 // GetMovie ...
 func (tmdb *TMDB) GetMovie(id string) (result Movie, err error) {
-	body, err := fetchContent(tmdb.BaseURL + "movie/" + id + "?api_key=" + tmdb.APIKey + "&append_to_response=credits,images")
+	s := fmt.Sprintf("%smovie/%s?api_key=%s&append_to_response=credits,images", tmdb.BaseURL, id, tmdb.APIKey)
+	u, _ := url.Parse(s)
+	body, err := fetchContent(u)
 	if err != nil {
 		return result, err
 	}
