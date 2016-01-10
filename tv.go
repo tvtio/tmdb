@@ -80,8 +80,5 @@ func (tmdb *TMDB) GetTV(id string) (result TV, err error) {
 		return result, err
 	}
 	err = json.Unmarshal(body, &result)
-	if err != nil {
-		return result, err
-	}
-	return result, nil
+	return result, err
 }
