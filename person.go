@@ -75,7 +75,10 @@ type Person struct {
 // GetPerson ...
 func (tmdb *TMDB) GetPerson(id string) (result Person, err error) {
 	s := fmt.Sprintf("%sperson/%s?api_key=%s&append_to_response=movie_credits,tv_credits", tmdb.BaseURL, id, tmdb.APIKey)
-	u, _ := url.Parse(s)
+	u, err := url.Parse(s)
+	if err != nil {
+		return result, err
+	}
 	body, err := fetchContent(u)
 	if err != nil {
 		return result, err

@@ -98,7 +98,10 @@ type Movie struct {
 // GetMovie ...
 func (tmdb *TMDB) GetMovie(id string) (result Movie, err error) {
 	s := fmt.Sprintf("%smovie/%s?api_key=%s&append_to_response=credits,images", tmdb.BaseURL, id, tmdb.APIKey)
-	u, _ := url.Parse(s)
+	u, err := url.Parse(s)
+	if err != nil {
+		return result, err
+	}
 	body, err := fetchContent(u)
 	if err != nil {
 		return result, err

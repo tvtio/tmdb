@@ -90,7 +90,10 @@ type Episode struct {
 // GetEpisode ...
 func (tmdb *TMDB) GetEpisode(id string, snumber string, enumber string) (result Episode, err error) {
 	s := fmt.Sprintf("%stv/%s/season/%s/episode/%s?api_key=%s&append_to_response=credits,external_ids,images,videos", tmdb.BaseURL, id, snumber, enumber, tmdb.APIKey)
-	u, _ := url.Parse(s)
+	u, err := url.Parse(s)
+	if err != nil {
+		return result, err
+	}
 	body, err := fetchContent(u)
 	if err != nil {
 		return result, err
