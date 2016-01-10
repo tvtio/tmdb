@@ -4,6 +4,8 @@
 
 package tmdb
 
+import "encoding/json"
+
 // Person type represents The Movie's Database Person
 type Person struct {
 	Adult        bool          `json:"adult"`
@@ -64,4 +66,17 @@ type Person struct {
 			PosterPath   string `json:"poster_path"`
 		} `json:"crew"`
 	} `json:"tv_credits"`
+}
+
+// GetPerson ...
+func (tmdb *TMDB) GetPerson(id string) (result Person, err error) {
+	body, err := fetchContent(tmdb.BaseURL + "person/" + id + "?api_key=" + tmdb.APIKey + "&append_to_response=movie_credits,tv_credits")
+	if err != nil {
+		return result, err
+	}
+	err = json.Unmarshal(body, &result)
+	if err != nil {
+		return result, err
+	}
+	return result, nil
 }

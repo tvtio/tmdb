@@ -4,6 +4,8 @@
 
 package tmdb
 
+import "encoding/json"
+
 // Episode type represents The Movie's Database TV Shows Episode
 type Episode struct {
 	AirDate string `json:"air_date"`
@@ -79,4 +81,17 @@ type Episode struct {
 	} `json:"videos"`
 	VoteAverage float64 `json:"vote_average"`
 	VoteCount   int     `json:"vote_count"`
+}
+
+// GetEpisode ...
+func (tmdb *TMDB) GetEpisode(id string, snumber string, enumber string) (result Episode, err error) {
+	body, err := fetchContent(tmdb.BaseURL + "tv/" + id + "/season/" + snumber + "/episode/" + enumber + "?api_key=" + tmdb.APIKey + "&append_to_response=credits,external_ids,images,videos")
+	if err != nil {
+		return result, err
+	}
+	err = json.Unmarshal(body, &result)
+	if err != nil {
+		return result, err
+	}
+	return result, nil
 }

@@ -4,6 +4,8 @@
 
 package tmdb
 
+import "encoding/json"
+
 // Season type represents The Movie's Database TV Show Season
 type Season struct {
 	ID           int    `json:"id"`
@@ -78,4 +80,17 @@ type Season struct {
 	Videos struct {
 		Results []interface{} `json:"results"`
 	} `json:"videos"`
+}
+
+// GetSeason ...
+func (tmdb *TMDB) GetSeason(id string, snumber string) (result Season, err error) {
+	body, err := fetchContent(tmdb.BaseURL + "tv/" + id + "/season/" + snumber + "?api_key=" + tmdb.APIKey + "&append_to_response=credits,external_ids,images,videos")
+	if err != nil {
+		return result, err
+	}
+	err = json.Unmarshal(body, &result)
+	if err != nil {
+		return result, err
+	}
+	return result, nil
 }
