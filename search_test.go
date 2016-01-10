@@ -35,11 +35,29 @@ func TestPopularTV(t *testing.T) {
 	}
 }
 
+func TestBadURLPopularTV(t *testing.T) {
+	tmdb := NewTMDB()
+	tmdb.BaseURL = "http://foo.bar/"
+	_, err := tmdb.PopularTV()
+	if err == nil {
+		t.Errorf("It should fail because the BaseURL %s, does not exist.", tmdb.BaseURL)
+	}
+}
+
 func TestSearchMulti(t *testing.T) {
 	tmdb := NewTMDB()
 	_, err := tmdb.SearchMulti("matrix")
 	if err != nil {
 		t.Errorf("It should not fail, but got an error: %s", err)
+	}
+}
+
+func TestBadURLSearchMulti(t *testing.T) {
+	tmdb := NewTMDB()
+	tmdb.BaseURL = "http://foo.bar/"
+	_, err := tmdb.SearchMulti("matrix")
+	if err == nil {
+		t.Errorf("It should fail because the BaseURL %s, does not exist.", tmdb.BaseURL)
 	}
 }
 
