@@ -89,8 +89,5 @@ func (tmdb *TMDB) GetSeason(id string, snumber string) (result Season, err error
 		return result, err
 	}
 	err = json.Unmarshal(body, &result)
-	if err != nil {
-		return result, err
-	}
-	return result, nil
+	return result, err
 }
