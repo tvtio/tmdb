@@ -22,7 +22,7 @@ const (
 //
 type TMDB struct {
 	APIKey  string
-	BaseURL string
+	BaseURL *url.URL
 }
 
 // fetchContent ...
@@ -45,5 +45,6 @@ func fetchContent(u *url.URL) (body []byte, err error) {
 // NewTMDB allocates and initializes a new TMDB.
 //
 func NewTMDB() *TMDB {
-	return &TMDB{APIKey: apiKey, BaseURL: baseURL}
+	u, _ := url.Parse(baseURL)
+	return &TMDB{APIKey: apiKey, BaseURL: u}
 }

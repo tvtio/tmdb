@@ -15,7 +15,7 @@ func TestInstance(t *testing.T) {
 	if tmdb.APIKey == "" {
 		t.Errorf("APIKey should not be blank.")
 	}
-	if tmdb.BaseURL == "" {
+	if tmdb.BaseURL.String() == "" {
 		t.Errorf("BaseURL should not be blank.")
 	}
 }
