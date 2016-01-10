@@ -7,6 +7,7 @@ package tmdb
 import (
 	"io/ioutil"
 	"net/http"
+	"net/url"
 )
 
 const (
@@ -25,9 +26,9 @@ type TMDB struct {
 }
 
 // fetchContent ...
-func fetchContent(url string) (body []byte, err error) {
+func fetchContent(u *url.URL) (body []byte, err error) {
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequest("GET", u.String(), nil)
 	if err != nil {
 		return body, err
 	}

@@ -4,7 +4,11 @@
 
 package tmdb
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+	"net/url"
+)
 
 // Person type represents The Movie's Database Person
 type Person struct {
@@ -70,7 +74,9 @@ type Person struct {
 
 // GetPerson ...
 func (tmdb *TMDB) GetPerson(id string) (result Person, err error) {
-	body, err := fetchContent(tmdb.BaseURL + "person/" + id + "?api_key=" + tmdb.APIKey + "&append_to_response=movie_credits,tv_credits")
+	s := fmt.Sprintf("%sperson/%s?api_key=%s&append_to_response=movie_credits,tv_credits", tmdb.BaseURL, id, tmdb.APIKey)
+	u, _ := url.Parse(s)
+	body, err := fetchContent(u)
 	if err != nil {
 		return result, err
 	}

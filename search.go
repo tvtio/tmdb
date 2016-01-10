@@ -4,7 +4,11 @@
 
 package tmdb
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+	"net/url"
+)
 
 // SearchMovieResult type represents The Movie Database Movies search results
 type SearchMovieResult struct {
@@ -83,7 +87,9 @@ type SearchTVResult struct {
 
 // PopularMovie ...
 func (tmdb *TMDB) PopularMovie() (result SearchMovieResult, err error) {
-	body, err := fetchContent(tmdb.BaseURL + "movie/popular?api_key=" + tmdb.APIKey)
+	s := fmt.Sprintf("%smovie/popular?api_key=%s", tmdb.BaseURL, tmdb.APIKey)
+	u, _ := url.Parse(s)
+	body, err := fetchContent(u)
 	if err != nil {
 		return result, err
 	}
@@ -93,7 +99,9 @@ func (tmdb *TMDB) PopularMovie() (result SearchMovieResult, err error) {
 
 // PopularTV ...
 func (tmdb *TMDB) PopularTV() (result SearchTVResult, err error) {
-	body, err := fetchContent(tmdb.BaseURL + "tv/popular?api_key=" + tmdb.APIKey)
+	s := fmt.Sprintf("%stv/popular?api_key=%s", tmdb.BaseURL, tmdb.APIKey)
+	u, _ := url.Parse(s)
+	body, err := fetchContent(u)
 	if err != nil {
 		return result, err
 	}
@@ -103,7 +111,9 @@ func (tmdb *TMDB) PopularTV() (result SearchTVResult, err error) {
 
 // SearchMulti ...
 func (tmdb *TMDB) SearchMulti(query string) (result SearchMultiResult, err error) {
-	body, err := fetchContent(tmdb.BaseURL + "search/multi?api_key=" + tmdb.APIKey + "&query=" + query)
+	s := fmt.Sprintf("%ssearch/multi?api_key=%s&query=%s", tmdb.BaseURL, tmdb.APIKey, query)
+	u, _ := url.Parse(s)
+	body, err := fetchContent(u)
 	if err != nil {
 		return result, err
 	}
@@ -113,7 +123,9 @@ func (tmdb *TMDB) SearchMulti(query string) (result SearchMultiResult, err error
 
 // SearchMovie ...
 func (tmdb *TMDB) SearchMovie(query string) (result SearchMovieResult, err error) {
-	body, err := fetchContent(tmdb.BaseURL + "search/movie?api_key=" + tmdb.APIKey + "&query=" + query)
+	s := fmt.Sprintf("%ssearch/movie?api_key=%s&query=%s", tmdb.BaseURL, tmdb.APIKey, query)
+	u, _ := url.Parse(s)
+	body, err := fetchContent(u)
 	if err != nil {
 		return result, err
 	}
