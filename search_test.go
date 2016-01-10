@@ -18,6 +18,15 @@ func TestPopularMovie(t *testing.T) {
 	}
 }
 
+func TestBadURLPopularMovie(t *testing.T) {
+	tmdb := NewTMDB()
+	tmdb.BaseURL = "http://foo.bar/"
+	_, err := tmdb.PopularMovie()
+	if err == nil {
+		t.Errorf("It should fail because the BaseURL %s, does not exist.", tmdb.BaseURL)
+	}
+}
+
 func TestPopularTV(t *testing.T) {
 	tmdb := NewTMDB()
 	_, err := tmdb.PopularTV()
