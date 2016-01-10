@@ -21,30 +21,41 @@ const (
 //						 http://docs.themoviedb.apiary.io/
 //
 type TMDB struct {
+	// HTTP client used to communicate with the API.
+	client *http.Client
+
 	APIKey  string
 	BaseURL *url.URL
 }
 
-// fetchContent ...
-func fetchContent(u *url.URL) (body []byte, err error) {
-	client := &http.Client{}
+// FetchContent ...
+func (tmdb *TMDB) FetchContent(u *url.URL) (body []byte, resp *http.Response, err error) {
 	req, err := http.NewRequest("GET", u.String(), nil)
 	if err != nil {
-		return body, err
+		return body, nil, err
 	}
 	req.Header.Add("Accept", "application/json")
-	resp, err := client.Do(req)
+	resp, err = tmdb.client.Do(req)
 	if err != nil {
-		return body, err
+		return body, resp, err
 	}
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
+	req.Close = true
 	body, err = ioutil.ReadAll(resp.Body)
-	return body, err
+	return body, resp, err
+}
+
+// New allocates and initializes a new TMDB.
+//
+func New() *TMDB {
+	u, _ := url.Parse(baseURL)
+	return &TMDB{client: http.DefaultClient, APIKey: apiKey, BaseURL: u}
 }
 
 // NewTMDB allocates and initializes a new TMDB.
 //
-func NewTMDB() *TMDB {
-	u, _ := url.Parse(baseURL)
-	return &TMDB{APIKey: apiKey, BaseURL: u}
+func NewTMDB(apikey string, baseurl *url.URL) *TMDB {
+	return &TMDB{client: http.DefaultClient, APIKey: apiKey, BaseURL: baseurl}
 }

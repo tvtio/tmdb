@@ -12,7 +12,7 @@ import (
 )
 
 func TestPopularMovie(t *testing.T) {
-	tmdb := NewTMDB()
+	tmdb := New()
 	_, err := tmdb.PopularMovie()
 	if err != nil {
 		t.Errorf("It should not fail, but got an error: %s", err)
@@ -20,7 +20,7 @@ func TestPopularMovie(t *testing.T) {
 }
 
 func TestBadURLPopularMovie(t *testing.T) {
-	tmdb := NewTMDB()
+	tmdb := New()
 	tmdb.BaseURL, _ = url.Parse("http://foo.bar/")
 	_, err := tmdb.PopularMovie()
 	if err == nil {
@@ -29,7 +29,7 @@ func TestBadURLPopularMovie(t *testing.T) {
 }
 
 func TestPopularTV(t *testing.T) {
-	tmdb := NewTMDB()
+	tmdb := New()
 	_, err := tmdb.PopularTV()
 	if err != nil {
 		t.Errorf("It should not fail, but got an error: %s", err)
@@ -37,7 +37,7 @@ func TestPopularTV(t *testing.T) {
 }
 
 func TestBadURLPopularTV(t *testing.T) {
-	tmdb := NewTMDB()
+	tmdb := New()
 	tmdb.BaseURL, _ = url.Parse("http://foo.bar/")
 	_, err := tmdb.PopularTV()
 	if err == nil {
@@ -46,7 +46,7 @@ func TestBadURLPopularTV(t *testing.T) {
 }
 
 func TestSearchMulti(t *testing.T) {
-	tmdb := NewTMDB()
+	tmdb := New()
 	_, err := tmdb.SearchMulti("matrix")
 	if err != nil {
 		t.Errorf("It should not fail, but got an error: %s", err)
@@ -54,7 +54,7 @@ func TestSearchMulti(t *testing.T) {
 }
 
 func TestBadURLSearchMulti(t *testing.T) {
-	tmdb := NewTMDB()
+	tmdb := New()
 	tmdb.BaseURL, _ = url.Parse("http://foo.bar/")
 	_, err := tmdb.SearchMulti("matrix")
 	if err == nil {
@@ -63,7 +63,7 @@ func TestBadURLSearchMulti(t *testing.T) {
 }
 
 func TestSearchMovie(t *testing.T) {
-	tmdb := NewTMDB()
+	tmdb := New()
 	_, err := tmdb.SearchMovie("matrix")
 	if err != nil {
 		t.Errorf("It should not fail, but got an error: %s", err)
@@ -71,7 +71,7 @@ func TestSearchMovie(t *testing.T) {
 }
 
 func TestBadURLSearchMovie(t *testing.T) {
-	tmdb := NewTMDB()
+	tmdb := New()
 	tmdb.BaseURL, _ = url.Parse("http://foo.bar/")
 	_, err := tmdb.SearchMovie("matrix")
 	if err == nil {

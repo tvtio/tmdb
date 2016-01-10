@@ -11,7 +11,7 @@ import (
 )
 
 func TestInstance(t *testing.T) {
-	tmdb := NewTMDB()
+	tmdb := New()
 	if tmdb.APIKey == "" {
 		t.Errorf("APIKey should not be blank.")
 	}

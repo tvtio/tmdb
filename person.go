@@ -6,6 +6,7 @@ package tmdb
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/url"
 )
@@ -79,9 +80,12 @@ func (tmdb *TMDB) GetPerson(id string) (result Person, err error) {
 	if err != nil {
 		return result, err
 	}
-	body, err := fetchContent(u)
+	body, resp, err := tmdb.FetchContent(u)
 	if err != nil {
 		return result, err
+	}
+	if resp.StatusCode != 200 {
+		return result, errors.New(resp.Status)
 	}
 	err = json.Unmarshal(body, &result)
 	return result, err
