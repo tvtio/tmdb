@@ -4,6 +4,8 @@
 
 package tmdb
 
+import "encoding/json"
+
 // Movie type represents The Movie's Database Movie
 type Movie struct {
 	Adult               bool    `json:"adult"`
@@ -87,4 +89,17 @@ type Movie struct {
 		Iso639_1 string `json:"iso_639_1"`
 		Name     string `json:"name"`
 	} `json:"spoken_languages"`
+}
+
+// GetMovie ...
+func (tmdb *TMDB) GetMovie(id string) (result Movie, err error) {
+	body, err := fetchContent(tmdb.BaseURL + "movie/" + id + "?api_key=" + tmdb.APIKey + "&append_to_response=credits,images")
+	if err != nil {
+		return result, err
+	}
+	err = json.Unmarshal(body, &result)
+	if err != nil {
+		return result, err
+	}
+	return result, nil
 }
