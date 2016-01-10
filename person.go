@@ -75,8 +75,5 @@ func (tmdb *TMDB) GetPerson(id string) (result Person, err error) {
 		return result, err
 	}
 	err = json.Unmarshal(body, &result)
-	if err != nil {
-		return result, err
-	}
-	return result, nil
+	return result, err
 }
