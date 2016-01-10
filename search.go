@@ -88,7 +88,10 @@ type SearchTVResult struct {
 // PopularMovie ...
 func (tmdb *TMDB) PopularMovie() (result SearchMovieResult, err error) {
 	s := fmt.Sprintf("%smovie/popular?api_key=%s", tmdb.BaseURL, tmdb.APIKey)
-	u, _ := url.Parse(s)
+	u, err := url.Parse(s)
+	if err != nil {
+		return result, err
+	}
 	body, err := fetchContent(u)
 	if err != nil {
 		return result, err
@@ -100,7 +103,10 @@ func (tmdb *TMDB) PopularMovie() (result SearchMovieResult, err error) {
 // PopularTV ...
 func (tmdb *TMDB) PopularTV() (result SearchTVResult, err error) {
 	s := fmt.Sprintf("%stv/popular?api_key=%s", tmdb.BaseURL, tmdb.APIKey)
-	u, _ := url.Parse(s)
+	u, err := url.Parse(s)
+	if err != nil {
+		return result, err
+	}
 	body, err := fetchContent(u)
 	if err != nil {
 		return result, err
@@ -112,7 +118,10 @@ func (tmdb *TMDB) PopularTV() (result SearchTVResult, err error) {
 // SearchMulti ...
 func (tmdb *TMDB) SearchMulti(query string) (result SearchMultiResult, err error) {
 	s := fmt.Sprintf("%ssearch/multi?api_key=%s&query=%s", tmdb.BaseURL, tmdb.APIKey, query)
-	u, _ := url.Parse(s)
+	u, err := url.Parse(s)
+	if err != nil {
+		return result, err
+	}
 	body, err := fetchContent(u)
 	if err != nil {
 		return result, err
@@ -124,7 +133,10 @@ func (tmdb *TMDB) SearchMulti(query string) (result SearchMultiResult, err error
 // SearchMovie ...
 func (tmdb *TMDB) SearchMovie(query string) (result SearchMovieResult, err error) {
 	s := fmt.Sprintf("%ssearch/movie?api_key=%s&query=%s", tmdb.BaseURL, tmdb.APIKey, query)
-	u, _ := url.Parse(s)
+	u, err := url.Parse(s)
+	if err != nil {
+		return result, err
+	}
 	body, err := fetchContent(u)
 	if err != nil {
 		return result, err

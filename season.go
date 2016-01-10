@@ -89,7 +89,10 @@ type Season struct {
 // GetSeason ...
 func (tmdb *TMDB) GetSeason(id string, snumber string) (result Season, err error) {
 	s := fmt.Sprintf("%stv/%s/season/%s?api_key=%s&append_to_response=credits,external_ids,images,videos", tmdb.BaseURL, id, snumber, tmdb.APIKey)
-	u, _ := url.Parse(s)
+	u, err := url.Parse(s)
+	if err != nil {
+		return result, err
+	}
 	body, err := fetchContent(u)
 	if err != nil {
 		return result, err
