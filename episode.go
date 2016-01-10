@@ -90,8 +90,5 @@ func (tmdb *TMDB) GetEpisode(id string, snumber string, enumber string) (result 
 		return result, err
 	}
 	err = json.Unmarshal(body, &result)
-	if err != nil {
-		return result, err
-	}
-	return result, nil
+	return result, err
 }
