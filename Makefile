@@ -9,7 +9,7 @@ test:
 
 cover:
 	go test -v -race  ./... -coverprofile=coverage.out
-	goveralls -v -coverprofile=coverage.out -service=circle-ci -repotoken=xx
+	goveralls -v -coverprofile=coverage.out -service=circle-ci -repotoken=P3MiD5U8iLnbQnvDdxr4nZEt610mncqdx
 	rm coverage.out
 
 lint:
