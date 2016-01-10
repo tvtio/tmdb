@@ -23,6 +23,7 @@ deps: dev-deps
 	# Dev dependencies
 
 dev-deps:
+	go get golang.org/x/tools/cmd/gorename
 	go get github.com/golang/lint/golint
 	go get github.com/jstemmer/gotags
 	go get github.com/axw/gocov/gocov
