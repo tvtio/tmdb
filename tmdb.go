@@ -16,6 +16,16 @@ const (
 	baseURL = "http://api.themoviedb.org/3/"
 )
 
+// TMDB is a type that implements a client to The Movie Database API
+//
+// More info : https://www.themoviedb.org/documentation/api
+//						 http://docs.themoviedb.apiary.io/
+//
+type TMDB struct {
+	APIKey  string
+	BaseURL string
+}
+
 func fetchContent(url string) (body []byte, err error) {
 	client := &http.Client{}
 	req, _ := http.NewRequest("GET", url, nil)
@@ -129,4 +139,10 @@ func GetEpisode(id string, snumber string, enumber string) (result Episode, err 
 		return result, err
 	}
 	return result, nil
+}
+
+// NewTMDB allocates and initializes a new TMDB.
+//
+func NewTMDB() *TMDB {
+	return &TMDB{APIKey: apiKey, BaseURL: baseURL}
 }

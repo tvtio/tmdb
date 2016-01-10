@@ -4,8 +4,18 @@
 
 package tmdb_test
 
-import "testing"
+import (
+	"testing"
 
-func TestDummy(t *testing.T) {
+	. "github.com/tvtio/tmdb"
+)
 
+func TestInstance(t *testing.T) {
+	tmdb := NewTMDB()
+	if tmdb.APIKey == "" {
+		t.Errorf("APIKey should not be blank.")
+	}
+	if tmdb.BaseURL == "" {
+		t.Errorf("BaseURL should not be blank.")
+	}
 }
