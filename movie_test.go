@@ -5,6 +5,7 @@
 package tmdb_test
 
 import (
+	"net/url"
 	"testing"
 
 	. "github.com/tvtio/tmdb"
@@ -20,7 +21,7 @@ func TestGetMovie(t *testing.T) {
 
 func TestBadURLGetMovie(t *testing.T) {
 	tmdb := NewTMDB()
-	tmdb.BaseURL = "http://foo.bar/"
+	tmdb.BaseURL, _ = url.Parse("http://foo.bar/")
 	_, err := tmdb.GetMovie("603") // The Matrix
 	if err == nil {
 		t.Errorf("It should fail because the BaseURL %s, does not exist.", tmdb.BaseURL)

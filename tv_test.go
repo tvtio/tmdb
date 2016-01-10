@@ -5,6 +5,7 @@
 package tmdb_test
 
 import (
+	"net/url"
 	"testing"
 
 	. "github.com/tvtio/tmdb"
@@ -20,7 +21,7 @@ func TestGetTV(t *testing.T) {
 
 func TestBadURLGetTV(t *testing.T) {
 	tmdb := NewTMDB()
-	tmdb.BaseURL = "http://foo.bar/"
+	tmdb.BaseURL, _ = url.Parse("http://foo.bar/")
 	_, err := tmdb.GetTV("456") // The Simpsons
 	if err == nil {
 		t.Errorf("It should fail because the BaseURL %s, does not exist.", tmdb.BaseURL)
