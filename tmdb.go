@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"os"
 )
 
 const (
@@ -56,6 +57,9 @@ func New() *TMDB {
 
 // NewTMDB allocates and initializes a new TMDB.
 //
-func NewTMDB(apikey string, baseurl *url.URL) *TMDB {
-	return &TMDB{client: http.DefaultClient, APIKey: apiKey, BaseURL: baseurl}
+func NewTMDB() *TMDB { // apikey string, baseurl *url.URL) *TMDB {
+	apiKey := os.Getenv("API_KEY")
+	urlBase := os.Getenv("BASE_URL")
+	u, _ := url.Parse(urlBase)
+	return &TMDB{client: http.DefaultClient, APIKey: apiKey, BaseURL: u}
 }
