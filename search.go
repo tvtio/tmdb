@@ -43,6 +43,7 @@ type SearchMovieResult struct {
 type SearchMultiResult struct {
 	Page    int `json:"page"`
 	Results []struct {
+		Adult            bool     `json:"adult"`
 		BackdropPath     string   `json:"backdrop_path"`
 		ProfilePath      string   `json:"profile_path"`
 		FirstAirDate     string   `json:"first_air_date"`
@@ -54,9 +55,12 @@ type SearchMultiResult struct {
 		OriginCountry    []string `json:"origin_country"`
 		OriginalLanguage string   `json:"original_language"`
 		OriginalName     string   `json:"original_name"`
+		OriginalTitle    string   `json:"original_title"`
 		Overview         string   `json:"overview"`
 		Popularity       float64  `json:"popularity"`
 		PosterPath       string   `json:"poster_path"`
+		ReleaseDate      string   `json:"release_date"`
+		Video            bool     `json:"video"`
 		VoteAverage      float64  `json:"vote_average"`
 		VoteCount        int      `json:"vote_count"`
 	} `json:"results"`
