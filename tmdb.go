@@ -31,6 +31,7 @@ type TMDB struct {
 
 // FetchContent ...
 func (tmdb *TMDB) FetchContent(u *url.URL) (body []byte, resp *http.Response, err error) {
+	u.RawQuery = u.Query().Encode()
 	req, err := http.NewRequest("GET", u.String(), nil)
 	if err != nil {
 		return body, nil, err
